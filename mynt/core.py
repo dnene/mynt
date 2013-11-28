@@ -133,11 +133,11 @@ class Mynt(object):
         
         for option, value in vars(parser.parse_args(args)).items():
             if value is not None:
-                if isinstance(option, str):
-                    option = option.decode('utf-8')
-                
-                if isinstance(value, str):
-                    value = value.decode('utf-8')
+#                if isinstance(option, str):
+#                    option = option.decode('utf-8')
+#                
+#                if isinstance(value, str):
+#                    value = value.decode('utf-8')
                 
                 opts[option] = value
         
