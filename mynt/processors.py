@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from calendar import timegm
 from datetime import datetime
@@ -44,7 +44,7 @@ class Reader(object):
             try:
                 Parser = parser.load()
             except DistributionNotFound as e:
-                logger.debug('@@ The %s parser could not be loaded due to a missing requirement: %s.', parser.name, unicode(e))
+                logger.debug('@@ The %s parser could not be loaded due to a missing requirement: %s.', parser.name, str(e))
                 
                 continue
             
@@ -63,18 +63,18 @@ class Reader(object):
             '<year>': '%Y',
             '<month>': '%m',
             '<day>': '%d',
-            '<i_month>': unicode(date.month),
-            '<i_day>': unicode(date.day),
+            '<i_month>': str(date.month),
+            '<i_day>': str(date.day),
             '<slug>': slug
         }
         
         url = url.replace('%', '%%')
         
-        for match, replace in subs.iteritems():
+        for match, replace in subs.items():
             url = url.replace(match, replace)
         
-        for attribute, value in frontmatter.iteritems():
-            if isinstance(value, basestring):
+        for attribute, value in frontmatter.items():
+            if isinstance(value, str):
                 url = url.replace('<{0}>'.format(attribute), slugify(value))
         
         url = date.strftime(url).decode('utf-8')
@@ -178,7 +178,7 @@ class Reader(object):
         containers = {}
         pages = posts.pages
         
-        for name, config in self.site['containers'].iteritems():
+        for name, config in self.site['containers'].items():
             container = self._parse(Container(name, self.src, config))
             
             containers[name] = container
@@ -219,7 +219,7 @@ class Writer(object):
         try:
             Renderer = load_entry_point('mynt', 'mynt.renderers', renderer)
         except DistributionNotFound as e:
-            raise RendererException('The {0} renderer requires {1}.'.format(renderer, unicode(e)))
+            raise RendererException('The {0} renderer requires {1}.'.format(renderer, str(e)))
         except ImportError:
             try:
                 Renderer = import_module('mynt.renderers.{0}'.format(renderer)).Renderer

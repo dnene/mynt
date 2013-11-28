@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
+
 
 from copy import deepcopy
 
@@ -28,7 +28,7 @@ def code_role(role, rawtext, text, lineno, inliner, options = {}, content = []):
     
     try:
         tokens = Lexer(utils.unescape(text, 1), language, inliner.document.settings.syntax_highlight)
-    except LexerError, error:
+    except LexerError as error:
         msg = inliner.reporter.warning(error)
         prb = inliner.problematic(rawtext, rawtext, msg)
         
@@ -76,8 +76,8 @@ class _CodeBlock(CodeBlock):
             classes.extend(self.options['classes'])
         
         try:
-            tokens = Lexer(u'\n'.join(self.content), language, self.state.document.settings.syntax_highlight)
-        except LexerError, error:
+            tokens = Lexer('\n'.join(self.content), language, self.state.document.settings.syntax_highlight)
+        except LexerError as error:
             raise self.warning(error)
         
         pre = nodes.literal_block(classes = classes)

@@ -3,3 +3,4 @@ mynt.egg-info/
 *.pyc
 *.sublime-project
 *.sublime-workspace
+*.bak

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, unicode_literals
+
 
 from argparse import ArgumentParser
 from copy import deepcopy
@@ -131,7 +131,7 @@ class Mynt(object):
         
         watch.set_defaults(func = self.watch)
         
-        for option, value in vars(parser.parse_args(args)).iteritems():
+        for option, value in vars(parser.parse_args(args)).items():
             if value is not None:
                 if isinstance(option, str):
                     option = option.decode('utf-8')
@@ -174,7 +174,7 @@ class Mynt(object):
                     if re.search(r'(?:^\.{2}/|/\.{2}$|/\.{2}/)', self.config[setting]):
                         raise ConfigException('Invalid config setting.', 'setting: {0}'.format(setting), 'path traversal is not allowed')
                 
-                for name, config in self.config['containers'].iteritems():
+                for name, config in self.config['containers'].items():
                     try:
                         url = absurl(config['url'])
                     except KeyError:
@@ -183,7 +183,7 @@ class Mynt(object):
                     if re.search(r'(?:^\.{2}/|/\.{2}$|/\.{2}/)', url):
                         raise ConfigException('Invalid config setting.', 'setting: containers:{0}:url'.format(name), 'path traversal is not allowed')
                     
-                    config.update((k, v) for k, v in self.container_defaults.iteritems() if k not in config)
+                    config.update((k, v) for k, v in self.container_defaults.items() if k not in config)
                     config['url'] = url
                 
                 for pattern in self.config['include']:
@@ -206,7 +206,7 @@ class Mynt(object):
         self.data['posts'] = self.posts.data
         self.data['containers'] = {}
         
-        for name, container in self.containers.iteritems():
+        for name, container in self.containers.items():
             self.data['containers'][name] = container.data
     
     def _render(self):

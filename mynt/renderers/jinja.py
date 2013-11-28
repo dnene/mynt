@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from collections import OrderedDict
 from datetime import datetime
@@ -83,10 +83,10 @@ class Renderer(_Renderer):
         return absurl(*parts)
     
     def _items(self, dict_):
-        return dict_.iteritems()
+        return iter(dict_.items())
     
     def _values(self, dict_):
-        return dict_.itervalues()
+        return iter(dict_.values())
     
     
     def from_string(self, string, data = None):

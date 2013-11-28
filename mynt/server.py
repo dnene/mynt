@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
 
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-from SocketServer import TCPServer
+
+from http.server import SimpleHTTPRequestHandler
+from socketserver import TCPServer
 
 from mynt.utils import get_logger
 
@@ -27,7 +27,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
         args = list(args)
         
         for i, v in enumerate(args):
-            if not isinstance(v, basestring):
+            if not isinstance(v, str):
                 args[i] = str(v).decode('utf-8')
             elif isinstance(v, str):
                 args[i] = v.decode('utf-8')

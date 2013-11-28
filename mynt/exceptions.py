@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 
 class MyntException(Exception):
@@ -13,7 +13,7 @@ class MyntException(Exception):
     
     
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return str(self).encode('utf-8')
     
     def __unicode__(self):
         message = '!! {0}'.format(self.message)

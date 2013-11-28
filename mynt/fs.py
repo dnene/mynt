@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from codecs import open
 from datetime import datetime
@@ -97,7 +97,7 @@ class Directory(object):
         return self.path != other
     
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return str(self).encode('utf-8')
     
     def __unicode__(self):
         return self.path
@@ -201,7 +201,7 @@ class File(object):
     
     
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return str(self).encode('utf-8')
     
     def __unicode__(self):
         return self.path

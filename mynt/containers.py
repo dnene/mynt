@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from collections import OrderedDict
 from datetime import datetime
@@ -69,7 +69,7 @@ class Container(object):
             pages.append((item['layout'], {'item': item}, item['url']))
         
         if self.config['archive_layout'] and self.archives:
-            for archive in self.archives.itervalues():
+            for archive in self.archives.values():
                 pages.append((
                     self.config['archive_layout'],
                     {'archive': archive},
@@ -77,7 +77,7 @@ class Container(object):
                 ))
         
         if self.config['tag_layout'] and self.tags:
-            for tag in self.tags.itervalues():
+            for tag in self.tags.values():
                 pages.append((
                     self.config['tag_layout'],
                     {'tag': tag},
@@ -102,7 +102,7 @@ class Container(object):
         def sort(item):
             attribute = item.get(key, item)
             
-            if isinstance(attribute, basestring):
+            if isinstance(attribute, str):
                 return attribute.lower()
             
             return attribute
@@ -116,7 +116,7 @@ class Container(object):
     def archive(self):
         self._archive(self.container, self.archives)
         
-        for tag in self.tags.itervalues():
+        for tag in self.tags.values():
             self._archive(tag['container'], tag['archives'])
     
     def sort(self):
@@ -127,7 +127,7 @@ class Container(object):
         tags = []
         
         for item in self.container:
-            item['tags'].sort(key = unicode.lower)
+            item['tags'].sort(key = str.lower)
             
             for tag in item['tags']:
                 if tag not in self.tags:
@@ -135,7 +135,7 @@ class Container(object):
                 
                 self.tags[tag].append(item)
         
-        for name, container in self.tags.iteritems():
+        for name, container in self.tags.items():
             tags.append({
                 'archives': OrderedDict(),
                 'count': len(container),
@@ -193,7 +193,7 @@ class Posts(Container):
             'url': 'posts_url'
         }
         
-        for k, v in config.iteritems():
+        for k, v in config.items():
             config[k] = self.config.get(v, v)
         
         self.config = config

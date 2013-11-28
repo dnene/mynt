@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import, unicode_literals
+
 
 from copy import deepcopy
 from operator import or_
@@ -10,6 +10,7 @@ import houdini as h
 import misaka as m
 
 from mynt.base import Parser as _Parser
+from functools import reduce
 
 
 class _Renderer(m.HtmlRenderer):
@@ -115,11 +116,11 @@ class Parser(_Parser):
         self.flags = {}
         self.config = deepcopy(self.defaults)
         
-        for k, v in self.options.iteritems():
+        for k, v in self.options.items():
             self.config[k].update(v)
         
-        for group, options in self.config.iteritems():
-            flags = [self.lookup[group][k] for k, v in options.iteritems() if v]
+        for group, options in self.config.items():
+            flags = [self.lookup[group][k] for k, v in options.items() if v]
             
             self.flags[group] = reduce(or_, flags, 0)
         
