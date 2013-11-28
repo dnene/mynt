@@ -27,9 +27,9 @@ class RequestHandler(SimpleHTTPRequestHandler):
         args = list(args)
         
         for i, v in enumerate(args):
-            if not isinstance(v, str):
+            if not isinstance(v, bytes):
                 args[i] = str(v).decode('utf-8')
-            elif isinstance(v, str):
+            elif isinstance(v, bytes):
                 args[i] = v.decode('utf-8')
         
         logger.debug('>> [%s] %s: %s', self.log_date_time_string(), self.address_string(), ' '.join(args))

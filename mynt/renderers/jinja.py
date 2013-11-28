@@ -63,9 +63,13 @@ class Renderer(_Renderer):
     
     def _date(self, ts, format = '%A, %B %d, %Y'):
         if ts is None:
-            return datetime.utcnow().strftime(format).decode('utf-8')
+            # was pre py3
+            #return datetime.utcnow().strftime(format).decode('utf-8')
+            return datetime.utcnow().strftime(format)
         
-        return datetime.utcfromtimestamp(ts).strftime(format).decode('utf-8')
+        # was pre py3
+        #return datetime.utcfromtimestamp(ts).strftime(format).decode('utf-8')
+        return datetime.utcfromtimestamp(ts).strftime(format)
     
     def _get_asset(self, asset):
         return absurl(self.globals['site']['base_url'], self.globals['site']['assets_url'], asset)
@@ -132,7 +136,9 @@ class Renderer(_Renderer):
         
         if 'extensions' in self.config and 'jinja2.ext.i18n' in self.config['extensions']:
             try:
-                langs = [locale.getlocale(locale.LC_MESSAGES)[0].decode('utf-8')]
+                # was pre py3
+                #langs = [locale.getlocale(locale.LC_MESSAGES)[0].decode('utf-8')]
+                langs = [locale.getlocale(locale.LC_MESSAGES)[0]]
             except AttributeError:
                 langs = None
             

@@ -77,7 +77,9 @@ class Reader(object):
             if isinstance(value, str):
                 url = url.replace('<{0}>'.format(attribute), slugify(value))
         
-        url = date.strftime(url).decode('utf-8')
+        # was pre py3
+        #url = date.strftime(url).decode('utf-8')
+        url = date.strftime(url)
         
         return format_url(url, url.endswith('/'))
     
@@ -91,7 +93,9 @@ class Reader(object):
             d[i] = v
         
         if not d[3]:
-            d[3], d[4] = mtime.strftime('%H %M').decode('utf-8').split()
+            # was pre py3
+            #d[3], d[4] = mtime.strftime('%H %M').decode('utf-8').split()
+            d[3], d[4] = mtime.strftime('%H %M').split()
         elif not d[4]:
             d[4] = '{0:02d}'.format(d[4])
         
@@ -153,7 +157,9 @@ class Reader(object):
             content = parser.parse(self._writer.from_string(bodymatter, frontmatter))
             
             item['content'] = content
-            item['date'] = date.strftime(self.site['date_format']).decode('utf-8')
+            # was pre py3
+            #item['date'] = date.strftime(self.site['date_format']).decode('utf-8')
+            item['date'] = date.strftime(self.site['date_format'])
             item['excerpt'] = re.search(r'\A.*?(?:<p>(.+?)</p>)?', content, re.M | re.S).group(1)
             item['tags'] = []
             item['timestamp'] = timegm(date.utctimetuple())

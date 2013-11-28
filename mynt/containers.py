@@ -44,7 +44,9 @@ class Container(object):
     
     def _archive(self, container, archive):
         for item in container:
-            year, month = datetime.utcfromtimestamp(item['timestamp']).strftime('%Y %B').decode('utf-8').split()
+            # was pre py3
+            #year, month = datetime.utcfromtimestamp(item['timestamp']).strftime('%Y %B').decode('utf-8').split()
+            year, month = datetime.utcfromtimestamp(item['timestamp']).strftime('%Y %B').split()
             
             if year not in archive:
                 archive[year] = {
